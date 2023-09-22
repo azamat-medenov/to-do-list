@@ -1,21 +1,23 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from dotenv import load_dotenv
 
 
 class DBConfig(BaseSettings):
-    type: str | None = None
-    connector: str | None = None
-    host: str | None = None
-    port: int | None = None
-    user: str | None = None
-    password: str | None = None
-    name: str | None = None
-    echo: bool = False
+    DB_TYPE: str
+    DB_CONNECTOR: str
+    DB_HOST: str
+    DB_PORT: int
+    DB_USER: str
+    DB_PASSWORD: str
+    DB_NAME: str
 
     @property
-    def db_url(self):
-        return f'{self.type}+{self.connector}://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}'
+    def DATABASE_URL(self):
+        return f'{self.DB_TYPE}+{self.DB_CONNECTOR}://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}'
 
-    model_config = SettingsConfigDict(env_file='.env')
+    model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
 
+
+load_dotenv()
 
 db_config = DBConfig()
