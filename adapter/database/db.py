@@ -1,7 +1,11 @@
-import asyncio
+from typing import AsyncGenerator
 
-from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy import text
+from sqlalchemy.ext.asyncio import (
+    create_async_engine,
+    AsyncSession,
+    async_sessionmaker,
+    AsyncEngine,
+)
 
 from config import db_config
 
@@ -12,10 +16,13 @@ engine = create_async_engine(
     max_overflow=10,
 )
 
-async def get123():
-    async with engine.connect() as conn:
-        result = await conn.execute(text('SELECT VERSION()'))
-        print(result)
+sessionmaker = async_sessionmaker(
+    bind=engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+    autoflush=False)
 
 
-asyncio.run(get123())
+async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
+    async with sessionmaker() as session:
+        yield session
