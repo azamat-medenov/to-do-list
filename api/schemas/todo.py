@@ -1,12 +1,13 @@
 from pydantic import BaseModel, Field
-from datetime import datetime
 
 
 class CreateTodo(BaseModel):
     task: str = Field(max_length=100)
-    done: bool
+    description: str
+    done: bool = False
 
 
 class UpdateTodo(BaseModel):
     task: str | None = Field(max_length=100)
-    done: bool | None
+    description: str | None
+    done: bool | None = False

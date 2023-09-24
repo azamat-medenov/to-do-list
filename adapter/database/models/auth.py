@@ -1,5 +1,4 @@
-from tokenize import String
-
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from adapter.database.models.base import Base

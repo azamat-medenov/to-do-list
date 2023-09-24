@@ -7,7 +7,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
-from config import DB_HOST, DB_NAME, DB_PORT, DB_USER, DB_PASSWORD, DB_TYPE, DB_CONNECTOR
+from config import db_config
 from models.todo import Todo
 
 # this is the Alembic Config object, which provides
@@ -16,13 +16,13 @@ config = context.config
 
 section = config.config_ini_section
 
-config.set_section_option(section, 'DB_HOST', DB_HOST)
-config.set_section_option(section, 'DB_NAME', DB_NAME)
-config.set_section_option(section, 'DB_PORT', DB_PORT)
-config.set_section_option(section, 'DB_USER', DB_USER)
-config.set_section_option(section, 'DB_PASSWORD', DB_PASSWORD)
-config.set_section_option(section, 'DB_TYPE', DB_TYPE)
-config.set_section_option(section, 'DB_CONNECTOR', DB_CONNECTOR)
+config.set_section_option(section, 'DB_HOST', db_config.DB_HOST)
+config.set_section_option(section, 'DB_NAME', db_config.DB_NAME)
+config.set_section_option(section, 'DB_PORT', db_config.DB_PORT)
+config.set_section_option(section, 'DB_USER', db_config.DB_USER)
+config.set_section_option(section, 'DB_PASSWORD', db_config.DB_PASSWORD)
+config.set_section_option(section, 'DB_TYPE', db_config.DB_TYPE)
+config.set_section_option(section, 'DB_CONNECTOR', db_config.DB_CONNECTOR)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

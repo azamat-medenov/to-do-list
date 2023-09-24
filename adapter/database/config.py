@@ -6,7 +6,7 @@ class DBConfig(BaseSettings):
     DB_TYPE: str
     DB_CONNECTOR: str
     DB_HOST: str
-    DB_PORT: int
+    DB_PORT: str
     DB_USER: str
     DB_PASSWORD: str
     DB_NAME: str
