@@ -1,9 +1,5 @@
-from sqlalchemy import String, ForeignKey
+from sqlalchemy import String, ForeignKey, Text
 from sqlalchemy.orm import Mapped, mapped_column
-
-import sys
-
-sys.path.append('..')
 
 from .base import Base
 
@@ -13,7 +9,10 @@ class Todo(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     task: Mapped[str] = mapped_column(String(length=100))
-    owner: Mapped[int] = ForeignKey('user.id')
+    description: Mapped[str] = mapped_column(Text())
+    owner_id: Mapped[int] = ForeignKey('user.id')
+    done: Mapped[bool]
+
 
     def __str__(self):
         return self.task
