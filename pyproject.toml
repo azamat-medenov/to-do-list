@@ -1,24 +1,26 @@
 [tool.poetry]
-name = "todo"
+name = "to-do-list"
 version = "0.1.0"
 description = ""
-authors = ["Azamat <medenovvaza@gmail.com>"]
+authors = ["meden <medenovvaza@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-asyncpg = "^0.28.0"
+python = "^3.12"
+fastapi = {extras = ["all"], version = "^0.103.2"}
 alembic = "^1.12.0"
-psycopg = {extras = ["binary"], version = "^3.1.10"}
-sqlalchemy = "^2.0.21"
-fastapi = {extras = ["all"], version = "^0.103.1"}
-install = "^1.3.5"
+asyncpg = "^0.28.0"
 fastapi-users = {extras = ["sqlalchemy"], version = "^12.1.2"}
+ruff = "^0.0.292"
 
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.2"
 pytest-asyncio = "^0.21.1"
+
+
+[tool.poetry.group.typecheck.dependencies]
+mypy = "^1.5.1"
 
 [build-system]
 requires = ["poetry-core"]
