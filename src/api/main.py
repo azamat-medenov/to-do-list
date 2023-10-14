@@ -1,7 +1,5 @@
 import uvicorn
 from fastapi import FastAPI
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from src.api import routers
 
 
@@ -12,7 +10,7 @@ def main() -> FastAPI:
 
 
 def run():
-    uvicorn.run('main:main', host='localhost',port=5555)
+    uvicorn.run(app='main:main', host='localhost', port=8000, reload=True)
 
 
 if __name__ == '__main__':

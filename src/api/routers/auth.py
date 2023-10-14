@@ -12,6 +12,8 @@ fastapi_users_router = FastAPIUsers[User, uuid.UUID](
     [auth_backend],
 )
 
+current_user = fastapi_users_router.current_user()
+
 
 def setup(app: FastAPI):
     app.include_router(
