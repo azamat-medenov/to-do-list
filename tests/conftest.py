@@ -3,22 +3,28 @@ import pytest
 from typing import AsyncGenerator
 from fastapi.testclient import TestClient
 from httpx import AsyncClient
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.pool import NullPool
 
 from src.adapter.database.models.base import Base
 from src.api.main import main
 from src.adapter.database.db import get_async_session
-from tests.env import DB_USER_TEST, DB_PASSWORD_TEST, DB_HOST_TEST, DB_NAME_TEST, DB_PORT_TEST
+from tests.env import (DB_USER_TEST,
+                       DB_PASSWORD_TEST,
+                       DB_HOST_TEST,
+                       DB_NAME_TEST,
+                       DB_PORT_TEST)
 
 app = main()
 
-# DATABASE
 DATABASE_URL_TEST = f"postgresql+asyncpg://{DB_USER_TEST}:{DB_PASSWORD_TEST}@{DB_HOST_TEST}:{DB_PORT_TEST}/{DB_NAME_TEST}"
 
 engine_test = create_async_engine(DATABASE_URL_TEST, poolclass=NullPool)
-async_session_maker = sessionmaker(engine_test, class_=AsyncSession, expire_on_commit=False)
+async_session_maker = async_sessionmaker(
+    bind=engine_test,
+    class_=AsyncSession,
+    expire_on_commit=False)
+
 Base.metadata.bind = engine_test
 
 
@@ -41,7 +47,6 @@ async def prepare_database():
 
 @pytest.fixture(scope='session')
 def event_loop(request):
-    """Create an instance of the default event loop for each test case."""
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()

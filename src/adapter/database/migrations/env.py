@@ -1,7 +1,3 @@
-import sys
-
-sys.path.append('..')
-
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
@@ -9,8 +5,8 @@ from alembic import context
 
 from src.adapter.database.config import db_config
 from src.adapter.database.models.base import Base
-from src.adapter.database.models.auth import User
 from src.adapter.database.models.todo import Todo
+from src.adapter.database.models.auth import User
 
 config = context.config
 
@@ -29,7 +25,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 
-target_metadata = [Base.metadata]
+target_metadata = Base.metadata
 
 
 
