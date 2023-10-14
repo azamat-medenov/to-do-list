@@ -14,8 +14,8 @@ class TodoRepo:
             self, user_id: UUID_ID,
             todo_id: UUID_ID, todo: UpdateTodo):
         stmt = (update(self.model)
-                .where(and_(self.model.id == todo_id,
-                            self.model.user_id == user_id))
+                .where(self.model.id == todo_id,
+                            self.model.user_id == user_id)
                 .values(**todo.model_dump())
                 .returning(self.model))
         res = await self.session.execute(stmt)
@@ -23,9 +23,9 @@ class TodoRepo:
         return res.one()._asdict()
 
     async def delete(self, user_id: UUID_ID, todo_id: UUID_ID):
-        stmt = (self.model.delete()
-                .where(and_(self.model.id == todo_id,
-                            self.model.user_id == user_id)))
+        stmt = (delete(self.model)
+                .where(self.model.id == todo_id,
+                            self.model.user_id == user_id))
         await self.session.execute(stmt)
         await self.session.commit()
 

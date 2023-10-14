@@ -7,6 +7,8 @@ from src.adapter.database.db import get_async_session
 from src.adapter.database.models.auth import User
 from src.api.routers.auth import current_user
 from src.api.services.todo import TodoService
+
+
 todo_router = APIRouter(
     prefix='/api/todo', tags=["Todo"]
 )
