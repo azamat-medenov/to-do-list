@@ -23,7 +23,7 @@ class TodoRepo:
         return res.one()._asdict()
 
     async def delete(self, user_id: UUID_ID, todo_id: UUID_ID):
-        stmt = (delete(self.model)
+        stmt = (self.model.delete()
                 .where(and_(self.model.id == todo_id,
                             self.model.user_id == user_id)))
         await self.session.execute(stmt)
