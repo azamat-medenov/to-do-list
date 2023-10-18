@@ -40,7 +40,10 @@ async def test_update_todo(ac: AsyncClient):
     jwt = response.json().get('access_token')
 
     response = await ac.get('/api/todo',
-                           headers={'Authorization': f'Bearer {jwt}'})
+                            headers={'Authorization': f'Bearer {jwt}'})
+
+    assert response.status_code == 200
+    print(response.json())
 
     todo_id = response.json()[0].get('id')
 
