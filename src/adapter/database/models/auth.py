@@ -12,6 +12,8 @@ if typing.TYPE_CHECKING:
 
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
+
+
     firstname: Mapped[str] = mapped_column(String(length=25), nullable=False)
     todo_list: Mapped[List['Todo']] = relationship(
         back_populates='user', cascade='all, delete-orphan'

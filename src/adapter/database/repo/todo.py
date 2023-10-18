@@ -35,6 +35,6 @@ class TodoRepo:
 
     async def get_all(self, user_id: UUID_ID):
         query = await self.session.scalars(
-            select(self.model)
+            select(self.model).filter_by(done=False)
             .filter_by(user_id=user_id))
         return query.all()

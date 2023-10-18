@@ -13,6 +13,7 @@ asyncpg = "^0.28.0"
 fastapi-users = {extras = ["sqlalchemy"], version = "^12.1.2"}
 ruff = "^0.0.292"
 sqlalchemy = {extras = ["mypy"], version = "^2.0.22"}
+gunicorn = "^21.2.0"
 
 
 [tool.poetry.group.test.dependencies]
